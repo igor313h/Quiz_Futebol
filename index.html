@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Futebol - Desafio Seu Conhecimento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- TELA DE LOGIN -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-box">
+                <h1>⚽ Quiz Futebol</h1>
+                <p class="subtitle">Teste seus conhecimentos sobre futebol</p>
+                
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="username">Nome de Usuário:</label>
+                        <input type="text" id="username" name="username" required placeholder="Digite seu nome de usuário">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required placeholder="Digite seu email">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </form>
+                
+                <div class="existing-users">
+                    <p>Usuários cadastrados:</p>
+                    <div id="usersList" class="users-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA DO QUIZ -->
+    <div id="quizScreen" class="screen">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div class="user-info">
+                    <span class="username" id="currentUser"></span>
+                    <button class="btn btn-logout" onclick="logout()">Sair</button>
+                </div>
+                <div class="quiz-progress">
+                    <span id="questionNumber">Pergunta 1</span> de <span id="totalQuestions">10</span>
+                </div>
+            </div>
+            
+            <div class="quiz-content">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <h2 id="questionText" class="question-text"></h2>
+                
+                <div class="options-container" id="optionsContainer"></div>
+                
+                <div class="quiz-controls">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" style="display: none;">← Anterior</button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Próxima →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA DE RESULTADOS -->
+    <div id="resultsScreen" class="screen">
+        <div class="results-container">
+            <div class="results-box">
+                <h1>Resultado do Quiz</h1>
+                <p class="result-subtitle" id="userResultName"></p>
+                
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span class="score-value" id="scoreValue">0</span>
+                        <span class="score-max">/10</span>
+                    </div>
+                    <p class="score-percentage" id="scorePercentage">0%</p>
+                </div>
+                
+                <div class="result-message" id="resultMessage"></div>
+                
+                <div class="details-section">
+                    <h3>Detalhes das Respostas:</h3>
+                    <div id="detailsList" class="details-list"></div>
+                </div>
+                
+                <div class="result-controls">
+                    <button class="btn btn-primary" onclick="retakeQuiz()">Refazer Quiz</button>
+                    <button class="btn btn-secondary" onclick="viewProfile()">Ver Perfil</button>
+                    <button class="btn btn-logout" onclick="logout()">Sair</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA DE PERFIL -->
+    <div id="profileScreen" class="screen">
+        <div class="profile-container">
+            <div class="profile-box">
+                <h1>Meu Perfil</h1>
+                <div class="profile-actions">
+                    <button class="btn btn-back" onclick="backToResults()">← Voltar</button>
+                    <button class="btn btn-secondary" onclick="showProfileEditor()">Editar Perfil</button>
+                    <button class="btn btn-danger" onclick="confirmDeleteUser()">Excluir Conta</button>
+                </div>
+                
+                <div class="user-stats">
+                    <div class="stat-card">
+                        <span class="stat-label">Nome</span>
+                        <span class="stat-value" id="profileUsername"></span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Email</span>
+                        <span class="stat-value" id="profileEmail"></span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Total de Quizzes</span>
+                        <span class="stat-value" id="profileTotalQuizzes">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Melhor Pontuação</span>
+                        <span class="stat-value" id="profileBestScore">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Pontuação Média</span>
+                        <span class="stat-value" id="profileAverageScore">0</span>
+                    </div>
+                </div>
+                
+                <div id="profileEditSection" class="profile-edit-form hidden">
+                    <h3>Editar Dados</h3>
+                    <div class="form-group">
+                        <label for="editUsername">Nome de Usuário</label>
+                        <input type="text" id="editUsername" placeholder="Novo nome de usuário">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" id="editEmail" placeholder="Novo email">
+                    </div>
+                    <div class="edit-buttons">
+                        <button class="btn btn-primary" onclick="saveProfileEdits()">Salvar</button>
+                        <button class="btn btn-secondary" onclick="cancelProfileEdit()">Cancelar</button>
+                    </div>
+                </div>
+                
+                <h3>Histórico de Quizzes</h3>
+                <div id="quizHistoryList" class="quiz-history"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

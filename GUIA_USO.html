@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Futebol - Guia de Uso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .start-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .steps {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content strong {
+            color: #333;
+        }
+
+        .step-content p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .file-list {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            list-style: none;
+        }
+
+        .file-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+        }
+
+        .file-list li:last-child {
+            border-bottom: none;
+        }
+
+        .file-list strong {
+            color: #667eea;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            color: #999;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .info-box strong {
+            color: #856404;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .success-box strong {
+            color: #155724;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚽ Quiz sobre Futebol</h1>
+        <p class="subtitle">Teste seus conhecimentos com um quiz interativo</p>
+
+        <a href="index.html" class="start-btn">↓ COMECE AGORA!</a>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>🔐 Login Seguro</h3>
+                <p>Crie sua conta com email e nome de usuário únicos. Seus dados ficam salvos no seu perfil.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📝 Quiz Completo</h3>
+                <p>10 perguntas sobre futebol com múltiplas opções. Navegue entre as questões livremente.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Resultados Detalhados</h3>
+                <p>Veja sua pontuação, percentual de acerto e detalhes de cada resposta.</p>
+            </div>
+            <div class="feature-card">
+                <h3>👤 Seu Perfil</h3>
+                <p>Acompanhe seu histórico de quizzes, melhor pontuação e estatísticas gerais.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💾 Auto-Save</h3>
+                <p>Todos os seus dados são salvos automaticamente no seu navegador.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📱 Responsivo</h3>
+                <p>Funciona perfeitamente em desktop, tablet e dispositivos móveis.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Como Funciona?</h2>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>Faça Login</strong>
+                        <p>Digite seu nome de usuário e email. Se for a primeira vez, sua conta será criada automaticamente.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <strong>Responda o Quiz</strong>
+                        <p>Você terá 10 perguntas sobre futebol. Pode navegar entre as questões e mudar suas respostas.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <strong>Veja os Resultados</strong>
+                        <p>Após responder todas as perguntas, você verá sua pontuação e detalhes das respostas.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <strong>Acompanhe seu Perfil</strong>
+                        <p>Seu resultado fica salvo no seu perfil. Você pode refazer o quiz quantas vezes quiser!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Arquivos do Projeto</h2>
+            <ul class="file-list">
+                <li><strong>index.html</strong> - Página principal com todas as telas (login, quiz, resultados, perfil)</li>
+                <li><strong>styles.css</strong> - Estilos responsivos e animações</li>
+                <li><strong>script.js</strong> - Lógica do aplicativo (eventos, navegação)</li>
+                <li><strong>data.js</strong> - Schema de dados, perguntas e banco de dados com LocalStorage</li>
+                <li><strong>README.md</strong> - Guia de uso do projeto</li>
+                <li><strong>DOCUMENTACAO_TECNICA.md</strong> - Documentação técnica detalhada</li>
+                <li><strong>GUIA_USO.html</strong> - Este arquivo (guia visual)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Perguntas Incluídas</h2>
+            <p>O quiz contém 10 perguntas sobre futebol, cobrindo:</p>
+            <div class="code-block">
+✓ Copa do Mundo 2022
+✓ Histórico de Copas do Mundo
+✓ Melhores jogadores da história
+✓ Recordes e estatísticas
+✓ Grandes clássicos e transferências
+✓ Competições internacionais
+            </div>
+        </div>
+
+        <div class="success-box">
+            <strong>✓ Todos os dados são salvos automaticamente!</strong> Seus quizzes, pontuações e perfil ficam armazenados no navegador, mesmo após fechar a página.
+        </div>
+
+        <div class="info-box">
+            <strong>💡 Dica:</strong> Você pode fazer o quiz quantas vezes quiser. Cada novo resultado será adicionado ao seu histórico no perfil.
+        </div>
+
+        <div class="section">
+            <h2>Recursos Técnicos</h2>
+            <p>Construído com tecnologias web modernas:</p>
+            <ul class="file-list">
+                <li><strong>HTML5</strong> - Estrutura semântica</li>
+                <li><strong>CSS3</strong> - Design responsivo com gradientes e animações</li>
+                <li><strong>JavaScript ES6</strong> - Lógica e interatividade</li>
+                <li><strong>LocalStorage</strong> - Persistência de dados local (sem servidor)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Compatibilidade</h2>
+            <p>Funciona em todos os navegadores modernos:</p>
+            <div class="code-block">
+✓ Google Chrome/Chromium
+✓ Mozilla Firefox
+✓ Apple Safari
+✓ Microsoft Edge
+✓ Dispositivos móveis (iOS/Android)
+✓ Tablets e responsivos
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Começar Agora</h2>
+            <p>Tudo que você precisa fazer é clicar no botão abaixo para começar:</p>
+            <a href="index.html" class="start-btn">Iniciar Quiz →</a>
+        </div>
+
+        <div class="footer">
+            <p>⚽ Quiz Futebol © 2024 | Desenvolvido com HTML, CSS, JavaScript e LocalStorage</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Divirta-se testando seus conhecimentos sobre futebol! 🎯</p>
+        </div>
+    </div>
+</body>
+</html>

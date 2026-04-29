@@ -1,0 +1,107 @@
+🚀 COMEÇAR AQUI
+================
+
+## ⚡ Instruções Rápidas
+
+### Passo 1: Abrir o Quiz
+1. Localize e abra: `index.html`
+2. O arquivo abrirá no seu navegador
+3. A aplicação está pronta para usar!
+
+### Passo 2: Fazer Login
+- Digite um nome de usuário
+- Digite um email
+- Clique em "Entrar"
+- Pronto! Você está logado
+
+### Passo 3: Fazer o Quiz
+- Responda as 10 perguntas sobre futebol
+- Clique nas opções para selecionar
+- Use "Próxima" e "Anterior" para navegar
+- Clique "Finalizar Quiz" na última pergunta
+
+### Passo 4: Ver Resultados
+- Sua pontuação aparecerá automaticamente
+- Veja os detalhes de cada resposta
+- Clique em "Ver Perfil" para ver seu histórico
+
+---
+
+## 📁 Arquivos Importantes
+
+Para **JOGAR**: 
+    → Abra: `index.html`
+
+Para **APRENDER**:
+    → Leia: `GUIA_USO.html` (guia visual)
+    → Leia: `README.md` (documentação)
+
+Para **ENTENDER O CÓDIGO**:
+    → Leia: `DOCUMENTACAO_TECNICA.md`
+    → Leia: `PROJETO_RESUMO.md`
+
+---
+
+## 🎯 O Que Você Vai Encontrar
+
+✓ Sistema de login com cadastro
+✓ 10 perguntas sobre futebol
+✓ Navegação entre perguntas
+✓ Cálculo automático de pontuação
+✓ Perfil com histórico de quizzes
+✓ Armazenamento de dados automático
+✓ Design moderno e responsivo
+
+---
+
+## 💾 Onde Seus Dados Ficam
+
+Os dados são salvos automaticamente no navegador:
+✓ Seus usuários cadastrados
+✓ Todos os quizzes que você fez
+✓ Pontuações
+✓ Histórico com datas
+
+Tudo fica seguro e privado no seu navegador!
+
+---
+
+## 🆘 Precisa de Ajuda?
+
+1. **Não consegue abrir?**
+   → Certifique-se de abrir `index.html` no navegador
+
+2. **Página em branco?**
+   → Recarregue a página (F5)
+
+3. **Dados não salvam?**
+   → Verifique se LocalStorage está habilitado
+   → Tente em outro navegador
+
+4. **Quer entender melhor?**
+   → Abra `GUIA_USO.html` para um guia visual completo
+
+---
+
+## 🎮 Dica Legal
+
+Você pode:
+- Fazer o quiz quantas vezes quiser
+- Ter múltiplos usuários
+- Ver o histórico de cada um
+- Comparar pontuações
+
+Tente fazer login rápido clicando em usuários existentes! 👍
+
+---
+
+## 📞 Versão
+
+✓ Quiz Futebol v1.0
+✓ Completo e Pronto para Usar
+✓ Desenvolvido em 08/04/2024
+
+---
+
+**Aproveite o quiz! Boa sorte! ⚽**
+

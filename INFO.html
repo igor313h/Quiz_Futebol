@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Futebol - Centro de Informações</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5em;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .primary {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+
+        .secondary {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        }
+
+        .files-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .files-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .file-item {
+            background: #f8f9ff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #333;
+            font-family: monospace;
+        }
+
+        .file-desc {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9em;
+            border: 2px solid #667eea;
+        }
+
+        .feature strong {
+            color: #667eea;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 QUIZ FUTEBOL 1.0</h1>
+            <p>Sistema Completo de Quiz sobre Futebol com Login e Perfil</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>⚽ Jogar Agora</h2>
+                <p>Comece imediatamente com o quiz completo sobre futebol. Faça login, responda as perguntas e veja seus resultados.</p>
+                <a href="index.html" class="btn primary">Iniciar Quiz →</a>
+            </div>
+
+            <div class="card">
+                <h2>📚 Ver Guia Visual</h2>
+                <p>Entenda como funciona com um guia interativo em HTML. Perfeito para aprender sobre todas as funcionalidades.</p>
+                <a href="GUIA_USO.html" class="btn secondary">Abrir Guia →</a>
+            </div>
+
+            <div class="card">
+                <h2>📖 Documentação</h2>
+                <p>Leia sobre o projeto em detalhes - uso, funcionalidades, arquitetura e tudo mais!</p>
+                <p style="color: #999; font-size: 0.9em;">Abra os arquivos .md com seu editor de texto</p>
+            </div>
+
+            <div class="card">
+                <h2>⚡ Início Rápido</h2>
+                <p>Instruções rápidas para começar em segundos. Tudo que você precisa saber em poucas linhas.</p>
+                <p style="color: #999; font-size: 0.9em;">Ver arquivo: COMECE_AQUI.txt</p>
+            </div>
+
+            <div class="card">
+                <h2>✅ Status</h2>
+                <p>Verificar lista de todas as funcionalidades implementadas.</p>
+                <p style="color: #28a745; font-weight: bold;">✓ Completo e Pronto para Produção</p>
+            </div>
+        </div>
+
+        <div class="files-section">
+            <h2>📁 Estrutura de Arquivos</h2>
+            
+            <h3 style="color: #333; margin-top: 20px; margin-bottom: 10px;">✨ Arquivos Principais</h3>
+            
+            <div class="file-item">
+                <div class="file-name">⭐ index.html</div>
+                <div class="file-desc">ABRA ESTE ARQUIVO PARA JOGAR! Página principal com telas de login, quiz, resultados e perfil.</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-name">🎨 styles.css</div>
+                <div class="file-desc">Estilos responsivos, animações e design moderno (1000+ linhas)</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-name">⚙️ script.js</div>
+                <div class="file-desc">Lógica da aplicação - eventos, navegação entre telas, quiz interativo (500+ linhas)</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-name">💾 data.js</div>
+                <div class="file-desc">Schema de dados com Classes (User, QuizResult, Database), 10 perguntas, LocalStorage (300+ linhas)</div>
+            </div>
+
+            <h3 style="color: #333; margin-top: 20px; margin-bottom: 10px;">📚 Documentação</h3>
+
+            <div class="file-item">
+                <div class="file-name">📖 README.md</div>
+                <div class="file-desc">Guia completo de uso, funcionalidades, compatibilidade e possíveis extensões</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-name">🔧 DOCUMENTACAO_TECNICA.md</div>
+                <div class="file-desc">Para desenvolvedores: classes, métodos, schema de dados, fluxo de eventos, LocalStorage</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-name">📋 PROJETO_RESUMO.md</div>
+                <div class="file-desc">Resumo visão geral do projeto, funcionalidades, tecnologias e checklist</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-name">📘 GUIA_USO.html</div>
+                <div class="file-desc">Guia interativo em HTML com instruções passo a passo e recursos</div>
+            </div>
+
+            <div class="file-item">
+                <div class="file-name">⚡ COMECE_AQUI.txt</div>
+                <div class="file-desc">Instruções super rápidas para começar em segundos</div>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <strong>🎯 10 Perguntas</strong><br>Sobre futebol
+                </div>
+                <div class="feature">
+                    <strong>🔐 Login</strong><br>Com validação
+                </div>
+                <div class="feature">
+                    <strong>💾 Auto-Save</strong><br>Dados locais
+                </div>
+                <div class="feature">
+                    <strong>📊 Perfil</strong><br>Com histórico
+                </div>
+                <div class="feature">
+                    <strong>📱 Responsivo</strong><br>Todos os devices
+                </div>
+                <div class="feature">
+                    <strong>⚡ Rápido</strong><br>Zero dependências
+                </div>
+            </div>
+        </div>
+
+        <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); margin-bottom: 30px;">
+            <h2 style="color: #667eea; margin-bottom: 20px;">🚀 Como Começar em 3 Passos</h2>
+            <ol style="color: #666; line-height: 2.2; padding-left: 20px; font-size: 1.05em;">
+                <li><strong>Clique no botão "Iniciar Quiz →"</strong> acima ou abra index.html</li>
+                <li><strong>Crie uma conta</strong> com um email ou faça login</li>
+                <li><strong>Responda as 10 perguntas</strong> e veja seus resultados!</li>
+            </ol>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 20px; border-left: 4px solid white; margin-bottom: 30px;">
+            <h3 style="color: white; margin-bottom: 10px;">💡 Informação Importante</h3>
+            <p style="color: rgba(255, 255, 255, 0.95); line-height: 1.6;">
+                <strong>✓ Dados Salvos Automaticamente:</strong> Todos os seus dados (usuários, quizzes, histórico) são salvos 
+                automaticamente no navegador usando LocalStorage. Você pode fazer o quiz quantas vezes quiser e seu histórico 
+                ficará sempre salvo! Nenhum servidor ou conexão internet necessária.
+            </p>
+        </div>
+
+        <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); text-align: center;">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Pronto para Começar?</h2>
+            <a href="index.html" class="btn primary" style="font-size: 1.2em; padding: 15px 40px;">⚽ INICIAR QUIZ AGORA!</a>
+        </div>
+
+        <div class="footer">
+            <p><strong>⚽ Quiz Futebol v1.0</strong></p>
+            <p>Desenvolvido com HTML5, CSS3, JavaScript ES6+ e LocalStorage</p>
+            <p>Completo • Responsivo • Pronto para Uso • Sem Dependências</p>
+            <p>© 2024</p>
+        </div>
+    </div>
+</body>
+</html>
