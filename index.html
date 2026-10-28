@@ -3,156 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Futebol - Desafio Seu Conhecimento</title>
+    <meta name="theme-color" content="#092b22">
+    <meta name="description" content="Um quiz de futebol com centenas de perguntas, modos de jogo, categorias e níveis de dificuldade.">
+    <title>Quiz Futebol — Jogue pela glória</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <!-- TELA DE LOGIN -->
-    <div id="loginScreen" class="screen active">
-        <div class="login-container">
-            <div class="login-box">
-                <h1>⚽ Quiz Futebol</h1>
-                <p class="subtitle">Teste seus conhecimentos sobre futebol</p>
-                
+<body class="dark-theme">
+    <div class="top-bar">
+        <a class="brand-mark" href="#" onclick="showScreen('welcomeScreen'); return false;" aria-label="Quiz Futebol, início">
+            <span class="brand-ball" aria-hidden="true">⚽</span><span>QUIZ<span class="brand-accent">FUTEBOL</span></span>
+        </a>
+        <div class="top-actions">
+            <button type="button" class="btn btn-ghost btn-small" onclick="openRankingFromCurrentScreen()" aria-label="Abrir ranking">🏆 <span>Ranking</span></button>
+            <button type="button" class="btn btn-ghost btn-small" onclick="openProfile()" aria-label="Abrir perfil">👤 <span>Perfil</span></button>
+            <div class="theme-switcher" role="group" aria-label="Tema da interface">
+                <button type="button" class="btn btn-ghost btn-small" data-theme="light" onclick="setTheme('light')" aria-label="Tema claro" aria-pressed="false">☀️</button>
+                <button type="button" class="btn btn-ghost btn-small" data-theme="dark" onclick="setTheme('dark')" aria-label="Tema escuro" aria-pressed="true">🌙</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="appNotice" class="app-notice hidden" role="status" aria-live="polite"></div>
+    <main class="app-shell">
+        <section id="welcomeScreen" class="screen active" aria-labelledby="welcomeTitle">
+            <div class="hero-card">
+                <div class="hero-copy">
+                    <p class="eyebrow"><span class="live-dot"></span> A bola está com você</p>
+                    <h1 id="welcomeTitle">Mostre que você<br><span>entende de futebol.</span></h1>
+                    <p class="hero-description">Histórias, lendas, regras e grandes decisões. Entre em campo e dispute cada ponto.</p>
+                    <button class="btn btn-primary btn-play" type="button" onclick="goToRegisterScreen()">JOGAR AGORA <span aria-hidden="true">→</span></button>
+                    <div class="hero-meta"><span>⚡ 10 modos de jogo</span><span>📚 <strong id="bankCount">Perguntas carregando…</strong></span></div>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="pitch-lines"></div><div class="hero-ball">⚽</div>
+                    <span class="floating-tag tag-top">GOL!</span><span class="floating-tag tag-bottom">+100 PTS</span>
+                </div>
+            </div>
+            <div class="feature-strip" aria-label="Destaques do jogo">
+                <div><span class="feature-icon">🎯</span><span><strong>Do iniciante ao especialista</strong><small>Quatro níveis para evoluir</small></span></div>
+                <div><span class="feature-icon">🔥</span><span><strong>Seu jogo, suas regras</strong><small>10 modos e ajudas estratégicas</small></span></div>
+                <div><span class="feature-icon">📈</span><span><strong>Progresso salvo</strong><small>Recordes e histórico no dispositivo</small></span></div>
+            </div>
+        </section>
+
+        <section id="loginScreen" class="screen" aria-labelledby="loginTitle">
+            <div class="panel auth-panel">
+                <button type="button" class="text-button" onclick="showScreen('welcomeScreen')">← Voltar ao início</button>
+                <p class="eyebrow">ACESSO AO JOGO</p>
+                <h1 id="loginTitle">Entre em campo</h1>
+                <p class="muted">Crie um perfil local ou continue com um jogador já cadastrado neste navegador.</p>
                 <form id="loginForm" onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label for="username">Nome de Usuário:</label>
-                        <input type="text" id="username" name="username" required placeholder="Digite seu nome de usuário">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required placeholder="Digite seu email">
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <label class="form-field" for="username">Nome de jogador
+                        <input type="text" id="username" name="username" maxlength="32" autocomplete="nickname" required placeholder="Como quer ser chamado?">
+                    </label>
+                    <label class="form-field" for="email">E-mail
+                        <input type="email" id="email" name="email" maxlength="120" autocomplete="email" required placeholder="voce@email.com">
+                    </label>
+                    <button class="btn btn-primary btn-wide" type="submit">CONTINUAR <span aria-hidden="true">→</span></button>
                 </form>
-                
                 <div class="existing-users">
-                    <p>Usuários cadastrados:</p>
+                    <h2>Jogadores deste navegador</h2>
                     <div id="usersList" class="users-list"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TELA DO QUIZ -->
-    <div id="quizScreen" class="screen">
-        <div class="quiz-container">
-            <div class="quiz-header">
-                <div class="user-info">
-                    <span class="username" id="currentUser"></span>
-                    <button class="btn btn-logout" onclick="logout()">Sair</button>
-                </div>
-                <div class="quiz-progress">
-                    <span id="questionNumber">Pergunta 1</span> de <span id="totalQuestions">10</span>
-                </div>
-            </div>
-            
-            <div class="quiz-content">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-                
-                <h2 id="questionText" class="question-text"></h2>
-                
-                <div class="options-container" id="optionsContainer"></div>
-                
-                <div class="quiz-controls">
-                    <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" style="display: none;">← Anterior</button>
-                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Próxima →</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TELA DE RESULTADOS -->
-    <div id="resultsScreen" class="screen">
-        <div class="results-container">
-            <div class="results-box">
-                <h1>Resultado do Quiz</h1>
-                <p class="result-subtitle" id="userResultName"></p>
-                
-                <div class="score-display">
-                    <div class="score-circle">
-                        <span class="score-value" id="scoreValue">0</span>
-                        <span class="score-max">/10</span>
+                    <div id="registeredUserActions" class="registered-user-actions hidden">
+                        <p>Olá, <strong id="registeredUserName"></strong>!</p>
+                        <div class="inline-actions">
+                            <button class="btn btn-primary" type="button" onclick="showLevelSelection()">Jogar</button>
+                            <button class="btn btn-secondary" type="button" onclick="viewProfile()">Perfil</button>
+                            <button class="btn btn-ghost" type="button" onclick="clearRegisteredUserSelection()">Cancelar</button>
+                        </div>
                     </div>
-                    <p class="score-percentage" id="scorePercentage">0%</p>
                 </div>
-                
-                <div class="result-message" id="resultMessage"></div>
-                
-                <div class="details-section">
-                    <h3>Detalhes das Respostas:</h3>
-                    <div id="detailsList" class="details-list"></div>
+            </div>
+        </section>
+
+        <section id="levelScreen" class="screen" aria-labelledby="setupTitle">
+            <div class="panel setup-panel">
+                <div class="setup-heading">
+                    <div><p class="eyebrow">PREPARE SUA PARTIDA</p><h1 id="setupTitle">Escolha seu desafio</h1><p id="currentUser" class="muted"></p></div>
+                    <button class="btn btn-ghost" type="button" onclick="logout()">Sair</button>
                 </div>
-                
+                <p id="selectedLevelText" class="setup-status" aria-live="polite">Escolha o modo, o nível e a categoria.</p>
+                <h2 class="section-title">Modo de jogo</h2>
+                <label class="sr-only" for="modeSelect">Modo de jogo</label>
+                <select id="modeSelect" class="select-control" onchange="selectMode(this.value)">
+                    <option value="classic">Clássico — 10 perguntas</option>
+                    <option value="time">Contra o Tempo — 60 segundos</option>
+                    <option value="survival">Sobrevivência — vidas configuráveis</option>
+                    <option value="truefalse">Verdadeiro ou Falso</option>
+                    <option value="daily">Desafio Diário — mesmo desafio para todos</option>
+                    <option value="championship">Campeonato — 4 rodadas até a final</option>
+                    <option value="player">Adivinhe o Jogador</option>
+                    <option value="club">Adivinhe o Clube</option>
+                    <option value="worldcup">Copa do Mundo</option>
+                    <option value="brazil">Futebol Brasileiro</option>
+                </select>
+                <div class="setup-grid">
+                    <div class="setup-block">
+                        <h2 class="section-title">Dificuldade</h2>
+                        <div class="level-buttons" role="group" aria-label="Escolha a dificuldade">
+                            <button class="level-btn active" type="button" data-difficulty="aleatorio" aria-pressed="true" onclick="selectDifficulty('aleatorio')">Aleatório</button>
+                            <button class="level-btn" type="button" data-difficulty="facil" aria-pressed="false" onclick="selectDifficulty('facil')">Fácil</button>
+                            <button class="level-btn" type="button" data-difficulty="medio" aria-pressed="false" onclick="selectDifficulty('medio')">Médio</button>
+                            <button class="level-btn" type="button" data-difficulty="dificil" aria-pressed="false" onclick="selectDifficulty('dificil')">Difícil</button>
+                            <button class="level-btn" type="button" data-difficulty="especialista" aria-pressed="false" onclick="selectDifficulty('especialista')">Especialista</button>
+                        </div>
+                    </div>
+                    <div class="setup-block">
+                        <h2 class="section-title">Categoria</h2>
+                        <label class="sr-only" for="categorySelect">Categoria</label>
+                        <select id="categorySelect" class="select-control"></select>
+                    </div>
+                </div>
+                <div class="setup-grid setup-bottom">
+                    <div class="setup-block">
+                        <h2 class="section-title">Vidas no modo Sobrevivência</h2>
+                        <label class="sr-only" for="livesSelect">Quantidade de vidas</label>
+                        <select id="livesSelect" class="select-control">
+                            <option value="1">1 vida — sem margem para erro</option>
+                            <option value="3" selected>3 vidas — padrão</option>
+                            <option value="5">5 vidas</option>
+                            <option value="10">10 vidas</option>
+                        </select>
+                    </div>
+                    <div class="setup-block setup-tip"><strong>💡 Dica de jogo</strong><p>Acertos valem pontos base, sequência aumenta a recompensa e respostas rápidas dão bônus.</p></div>
+                </div>
+                <button class="btn btn-primary btn-wide btn-start" type="button" onclick="confirmStartQuiz()">COMEÇAR PARTIDA <span aria-hidden="true">⚽</span></button>
+            </div>
+        </section>
+
+        <section id="quizScreen" class="screen" aria-labelledby="questionText">
+            <div class="panel game-panel">
+                <header class="game-header">
+                    <div class="game-brand"><span class="brand-ball">⚽</span><span id="modeName">Clássico</span><small id="quizUserName"></small></div>
+                    <button class="btn btn-ghost btn-small" type="button" onclick="returnToMenu()">Sair da partida</button>
+                </header>
+                <div class="game-stats">
+                    <div class="stat-pill"><small>PONTOS</small><strong id="scoreLive">0</strong></div>
+                    <div class="stat-pill"><small>SEQUÊNCIA</small><strong id="streakLive">0 🔥</strong></div>
+                    <div id="lifeCard" class="stat-pill hidden"><small>VIDAS</small><strong id="lifeCount">3</strong></div>
+                    <div id="timerCard" class="stat-pill timer-pill hidden"><small>TEMPO</small><strong><span id="timerValue">60</span>s</strong></div>
+                </div>
+                <div class="question-progress">
+                    <div class="progress-label"><span id="liveQuestionCount">Respondidas 0 · Restam 10</span><span>Pergunta <strong id="questionNumber">1</strong> de <span id="totalQuestions">10</span></span></div>
+                    <div class="progress-bar" role="progressbar" aria-label="Progresso da partida" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="championshipRound" class="round-label hidden" aria-live="polite"></p>
+                </div>
+                <div class="question-card">
+                    <div class="question-tags"><span id="categoryBadge" class="badge"></span><span id="difficultyBadge" class="badge badge-difficulty"></span></div>
+                    <h1 id="questionText" class="question-text" tabindex="-1"></h1>
+                    <div id="optionsContainer" class="options-container" role="group" aria-label="Alternativas"></div>
+                    <div id="feedbackPanel" class="feedback-panel hidden" aria-live="polite">
+                        <strong id="feedbackTitle"></strong>
+                        <p id="feedbackAnswer"></p>
+                        <p id="feedbackExplanation"></p>
+                        <small id="feedbackSource" class="source-citation"></small>
+                    </div>
+                </div>
+                <div class="help-row" aria-label="Ajudas disponíveis">
+                    <span class="help-label">AJUDAS</span>
+                    <button id="helpFifty" class="btn btn-help" type="button" onclick="useHelp('fifty')">½ Eliminar duas</button>
+                    <button id="helpHint" class="btn btn-help" type="button" onclick="useHelp('hint')">💡 Pista</button>
+                    <button id="helpSkip" class="btn btn-help" type="button" onclick="useHelp('skip')">⏭ Pular</button>
+                </div>
+                <p id="helpStatus" class="help-status" aria-live="polite"></p>
+                <div class="game-controls">
+                    <button class="btn btn-primary btn-next" id="nextBtn" type="button" onclick="nextQuestion()" disabled>Próxima pergunta</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="resultsScreen" class="screen" aria-labelledby="resultsTitle">
+            <div class="panel results-panel">
+                <p class="eyebrow">APITO FINAL</p>
+                <h1 id="resultsTitle">Fim de jogo</h1>
+                <p class="muted" id="userResultName"></p>
+                <div class="result-score-card"><strong id="scoreValue">0</strong><span>pontos</span><b id="scorePercentage">0%</b><small id="resultRecord"></small></div>
+                <p id="resultMessage" class="result-message"></p>
+                <div class="results-grid">
+                    <div><small>ACERTOS</small><strong id="resultCorrect">0</strong></div>
+                    <div><small>ERROS</small><strong id="resultIncorrect">0</strong></div>
+                    <div><small>TEMPO</small><strong id="resultTime">0:00</strong></div>
+                    <div><small>MELHOR SEQUÊNCIA</small><strong id="resultStreak">0</strong></div>
+                </div>
+                <div class="best-category"><span>⭐ Melhor categoria</span><strong id="resultCategory">—</strong></div>
+                <p id="achievements" class="achievement-line"></p>
                 <div class="result-controls">
-                    <button class="btn btn-primary" onclick="retakeQuiz()">Refazer Quiz</button>
-                    <button class="btn btn-secondary" onclick="viewProfile()">Ver Perfil</button>
-                    <button class="btn btn-logout" onclick="logout()">Sair</button>
+                    <button class="btn btn-primary" type="button" onclick="retakeQuiz()">JOGAR NOVAMENTE</button>
+                    <button class="btn btn-secondary" type="button" onclick="returnToMenu()">MUDAR DESAFIO</button>
+                    <button class="btn btn-ghost" type="button" onclick="viewProfile()">MEU PERFIL</button>
                 </div>
+                <details class="review-details">
+                    <summary>Revisar perguntas e explicações</summary>
+                    <div id="detailsList" class="details-list"></div>
+                </details>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- TELA DE PERFIL -->
-    <div id="profileScreen" class="screen">
-        <div class="profile-container">
-            <div class="profile-box">
-                <h1>Meu Perfil</h1>
+        <section id="profileScreen" class="screen" aria-labelledby="profileTitle">
+            <div class="panel profile-panel">
+                <div class="page-heading"><div><p class="eyebrow">SEU DESEMPENHO</p><h1 id="profileTitle">Perfil do jogador</h1></div><button class="btn btn-ghost" type="button" onclick="backToResults()">← Voltar</button></div>
+                <div class="profile-identity"><span class="profile-avatar">⚽</span><div><h2 id="profileUsername"></h2><p id="profileEmail" class="muted"></p></div></div>
+                <div class="results-grid profile-stats">
+                    <div><small>PARTIDAS</small><strong id="profileTotalQuizzes">0</strong></div>
+                    <div><small>MELHOR PONTUAÇÃO</small><strong id="profileBestScore">0</strong></div>
+                    <div><small>APROVEITAMENTO</small><strong id="profileAverageScore">0%</strong></div>
+                </div>
                 <div class="profile-actions">
-                    <button class="btn btn-back" onclick="backToResults()">← Voltar</button>
-                    <button class="btn btn-secondary" onclick="showProfileEditor()">Editar Perfil</button>
-                    <button class="btn btn-danger" onclick="confirmDeleteUser()">Excluir Conta</button>
+                    <button class="btn btn-secondary" type="button" onclick="showProfileEditor()">Editar perfil</button>
+                    <button class="btn btn-danger" type="button" onclick="confirmDeleteUser()">Excluir perfil local</button>
                 </div>
-                
-                <div class="user-stats">
-                    <div class="stat-card">
-                        <span class="stat-label">Nome</span>
-                        <span class="stat-value" id="profileUsername"></span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Email</span>
-                        <span class="stat-value" id="profileEmail"></span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Total de Quizzes</span>
-                        <span class="stat-value" id="profileTotalQuizzes">0</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Melhor Pontuação</span>
-                        <span class="stat-value" id="profileBestScore">0</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Pontuação Média</span>
-                        <span class="stat-value" id="profileAverageScore">0</span>
-                    </div>
-                </div>
-                
                 <div id="profileEditSection" class="profile-edit-form hidden">
-                    <h3>Editar Dados</h3>
-                    <div class="form-group">
-                        <label for="editUsername">Nome de Usuário</label>
-                        <input type="text" id="editUsername" placeholder="Novo nome de usuário">
-                    </div>
-                    <div class="form-group">
-                        <label for="editEmail">Email</label>
-                        <input type="email" id="editEmail" placeholder="Novo email">
-                    </div>
-                    <div class="edit-buttons">
-                        <button class="btn btn-primary" onclick="saveProfileEdits()">Salvar</button>
-                        <button class="btn btn-secondary" onclick="cancelProfileEdit()">Cancelar</button>
-                    </div>
+                    <label class="form-field" for="editUsername">Nome de jogador<input id="editUsername" maxlength="32" required></label>
+                    <label class="form-field" for="editEmail">E-mail<input id="editEmail" type="email" maxlength="120" required></label>
+                    <div class="inline-actions"><button class="btn btn-primary" type="button" onclick="saveProfileEdits()">Salvar</button><button class="btn btn-secondary" type="button" onclick="cancelProfileEdit()">Cancelar</button></div>
                 </div>
-                
-                <h3>Histórico de Quizzes</h3>
+                <h2 class="section-title">Conquistas</h2>
+                <div id="profileAchievements" class="achievement-list"></div>
+                <h2 class="section-title">Histórico de partidas</h2>
                 <div id="quizHistoryList" class="quiz-history"></div>
             </div>
-        </div>
-    </div>
+        </section>
 
+        <section id="rankingsScreen" class="screen" aria-labelledby="rankingTitle">
+            <div class="panel profile-panel">
+                <div class="page-heading"><div><p class="eyebrow">DISPUTA LOCAL</p><h1 id="rankingTitle">Ranking do navegador</h1></div><button class="btn btn-ghost" type="button" onclick="backFromRanking()">← Voltar</button></div>
+                <p class="muted">Este ranking é salvo apenas neste navegador. Para competir entre dispositivos, é necessário configurar um backend.</p>
+                <div class="ranking-header"><span>#</span><span>Jogador</span><span>Recorde</span><span>Média</span><span>Partidas</span></div>
+                <div id="rankingList" class="ranking-list"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="app-footer"><span>QUIZ<span class="brand-accent">FUTEBOL</span></span><span>Perguntas históricas e regras com referência editorial. Dados locais neste dispositivo.</span></footer>
     <script src="data.js"></script>
     <script src="script.js"></script>
 </body>

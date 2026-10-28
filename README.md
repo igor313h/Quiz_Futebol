@@ -1,196 +1,54 @@
-⚽ QUIZ FUTEBOL - Sistema Completo de Quiz com Login e Perfil
+# Quiz Futebol
 
-## 📋 Descrição
-Um sistema interativo de quiz sobre futebol com:
-- ✅ Sistema de autenticação (login/cadastro)
-- ✅ 10 perguntas sobre futebol
-- ✅ Perfil do usuário com histórico de quizzes
-- ✅ Armazenamento de dados em LocalStorage
-- ✅ Interface moderna e responsiva
-- ✅ Estatísticas e resultados detalhados
+Jogo de perguntas sobre futebol feito com HTML, CSS e JavaScript puro. Não requer instalação de pacotes nem conexão com uma API para jogar.
 
-## 📁 Estrutura do Projeto
+## Executar
 
-```
-quiz-futebol/
-├── index.html       # Página principal (HTML)
-├── styles.css       # Estilos da aplicação (CSS)
-├── script.js        # Lógica da aplicação (JavaScript)
-├── data.js          # Schema de dados e banco de dados
-└── README.md        # Este arquivo
-```
+1. Abra `index.html` em um navegador moderno; ou
+2. Na pasta do projeto, inicie um servidor estático com `python -m http.server 8000` e acesse `http://localhost:8000`.
 
-## 🚀 Como Usar
+O servidor local é recomendado para evitar restrições de armazenamento do navegador ao abrir arquivos diretamente.
 
-### Pré-requisitos
-- Navegador web moderno (Chrome, Firefox, Safari, Edge)
-- Nenhuma instalação necessária!
+## Como jogar
 
-### Instruções de Execução
-1. Abra o arquivo `index.html` em seu navegador
-2. Você verá a tela de login
+1. Clique em **Jogar agora**.
+2. Informe um nome e um e-mail para criar ou selecionar um perfil local.
+3. Escolha um modo, uma dificuldade e, quando compatível, uma categoria.
+4. Responda às perguntas; confira o resultado, as explicações e o histórico.
 
-### 🔑 Sistema de Login
-- **Novo Usuário**: Digite seu nome de usuário e email, clique em "Entrar"
-- **Usuário Existente**: Clique na tag do usuário na lista "Usuários cadastrados" ou digite o email novamente
+Perfis, partidas, tema e ranking ficam no `localStorage` do navegador. Esses perfis são apenas uma conveniência local, não uma autenticação segura. Limpar os dados do navegador remove esse histórico.
 
-### 📝 Quiz
-- Cada pergunta apresenta 4 opções de resposta
-- Você pode navegar entre as perguntas (anterior/próxima)
-- Responda todas as 10 perguntas antes de finalizar
-- O quiz será salvo automaticamente no seu perfil
+## Modos de jogo
 
-### 👤 Perfil
-- Visualize suas estatísticas
-- Veja o histórico de todos os seus quizzes
-- Acompanhe sua melhor pontuação e média
+- **Clássico:** 10 perguntas.
+- **Contra o Tempo:** 60 segundos para responder o máximo possível.
+- **Sobrevivência:** a partida termina quando as vidas configuradas acabam.
+- **Verdadeiro ou Falso:** afirmações derivadas de perguntas validadas.
+- **Desafio Diário:** conjunto determinístico de 10 perguntas por data local.
+- **Campeonato:** 12 perguntas divididas em quatro etapas até a final.
+- **Adivinhe o Jogador / Adivinhe o Clube:** identificação por pistas de carreira, apelido e cidade.
+- **Copa do Mundo / Futebol Brasileiro:** perguntas filtradas por tema.
 
-## 💾 Schema de Dados
+Há quatro dificuldades (Fácil, Médio, Difícil e Especialista), opção aleatória, categorias, tema claro/escuro e três ajudas por partida: eliminar duas opções, receber uma pista e pular uma pergunta. Acertos dão pontos base, sequência e velocidade podem render bônus. A pergunta não pode pontuar novamente na mesma partida.
 
-### Estrutura de Usuário
-```javascript
-{
-  id: timestamp,
-  username: "string",
-  email: "string",
-  createdAt: "ISO string",
-  quizzes: [array de resultados]
-}
-```
+## Banco de perguntas
 
-### Estrutura de Resultado do Quiz
-```javascript
-{
-  id: timestamp,
-  userId: timestamp,
-  completedAt: "ISO string",
-  answers: [array com respostas],
-  score: número (0-10),
-  correctAnswers: número
-}
-```
+O banco está separado da interface em `data.js`. Ele contém mais de 500 perguntas com ID único, quatro alternativas, resposta correta, categoria, dificuldade, explicação, pista e referência editorial. O carregamento valida IDs, enunciados, alternativas e respostas antes de iniciar a aplicação. As referências indicam arquivos institucionais (FIFA, IFAB, UEFA, CONMEBOL, CBF e outras); não há chamadas externas.
 
-### Estrutura de Pergunta
-```javascript
-{
-  id: número,
-  question: "string",
-  options: [array com 4 opções],
-  correct: índice da resposta correta,
-  explanation: "string"
-}
-```
+As perguntas privilegiam fatos históricos e regras estáveis. Elencos, transferências e estatísticas atuais não são tratados como dados ao vivo. Revise datas e recordes contra as fontes listadas antes de usar o banco em uma publicação formal.
 
-## 📊 Funcionalidades Principais
+## Arquivos principais
 
-### 1. Autenticação
-- Criar novo usuário com nome de usuário e email
-- Login rápido clicando no usuário existente
-- Lista de usuários cadastrados sempre visível
+- `index.html`: estrutura e telas do jogo.
+- `styles.css`: identidade visual, temas, acessibilidade e layout responsivo.
+- `script.js`: modos, pontuação, ajudas, resultados e navegação.
+- `data.js`: perguntas, validação do banco, perfis e armazenamento local.
 
-### 2. Quiz Interativo
-- 10 perguntas sobre futebol
-- Formato multiple-choice com 4 opções
-- Navegação entre perguntas
-- Validação: todas as perguntas devem ser respondidas
+`quiz-futebol.html`, `quiz-futebol.php`, `src/conexao-bd.php`, `test.php` e páginas de guia são materiais separados do fluxo principal. As páginas PHP requerem PHP, MySQL, um banco e credenciais configurados; não são necessárias para jogar a versão do `index.html`.
 
-### 3. Resultados
-- Pontuação total (0-10)
-- Percentual de acerto
-- Mensagem personalizada baseada na pontuação
-- Detalhes de cada resposta (correta/incorreta)
+## Limites e próximos passos
 
-### 4. Perfil do Usuário
-- Estatísticas gerais
-- Total de quizzes realizados
-- Melhor pontuação
-- Pontuação média
-- Histórico completo de quizzes com datas
-
-## 🎨 Recursos Visuais
-
-- Interface moderna com gradientes
-- Design responsivo (funciona em desktop e mobile)
-- Animações suaves
-- Indicador visual de progresso
-- Cores indicativas (verde para correto, vermelho para incorreto)
-
-## 💾 Armazenamento de Dados
-
-Todos os dados são salvos localmente no navegador usando **LocalStorage**:
-- Os dados persistem mesmo após fechar o navegador
-- Não requer servidor ou banco de dados
-- Completamente privado no dispositivo do usuário
-
-## 🔧 Funcionalidades Técnicas
-
-### data.js
-- Classe `User`: Gerencia dados do usuário
-- Classe `QuizResult`: Armazena resultado de um quiz
-- Classe `Database`: Gerencia todas as operações de armazenamento
-- Array `QUESTIONS`: Contém todas as perguntas do quiz
-
-### script.js
-- Funções de login e autenticação
-- Navegação entre telas
-- Lógica do quiz
-- Cálculo de pontuação
-- Exibição de resultados
-
-### styles.css
-- Responsivo com media queries
-- Design moderno com gradientes
-- Animações e transições
-- Temas para diferentes estados
-
-## 📱 Compatibilidade
-
-✅ Chrome/Chromium
-✅ Firefox
-✅ Safari
-✅ Edge
-✅ Dispositivos móveis
-✅ Tablets
-
-## 🌟 Recursos Avançados
-
-1. **Validação de Dados**: Verifica duplicação de emails
-2. **Histórico Completo**: Cada quiz é registrado com data/hora
-3. **Estatísticas em Tempo Real**: Calcula média, melhor pontuação, etc.
-4. **Primeira Resposta Padrão**: Navegação fácil entre questões
-5. **Logs de Usuários**: Mantém lista de todos os usuários crescimento
-
-## 🐛 Possíveis Extensões Futuras
-
-- [ ] Exportar resultados em PDF
-- [ ] Comparação de pontuações entre usuários
-- [ ] Diferentes categorias de perguntas
-- [ ] Modo multijogador
-- [ ] Temas personalizáveis (claro/escuro)
-- [ ] Banco de dados na nuvem
-- [ ] Sistema de níveis/badges
-- [ ] API para integrar com outras aplicações
-
-## 📝 Perguntas Incluídas
-
-1. Copa do Mundo 2022
-2. Primeira Copa do Mundo
-3. GOAT do futebol
-4. Gols de Pelé
-5. País com mais Copas
-6. Ronaldinho Gaúcho no Barcelona
-7. Times com mais Champions League
-8. Participantes de Copa do Mundo
-9. Barcelona Neymar
-10. Primeira Euro
-
-## 💡 Dicas de Uso
-
-- Use QuickLogin clicando nos usuários existentes para testar rapidamente
-- Cada quiz é independente, você pode fazer múltiplos testes
-- Os dados são salvos automaticamente
-- Você pode redefinir tudo limpando o armazenamento local do navegador
-
----
-
-Desenvolvido com ❤️ usando HTML, CSS, JavaScript e LocalStorage
+- O ranking é local ao navegador; ranking compartilhado exige backend, autenticação e armazenamento de partidas no servidor.
+- O cadastro local não verifica identidade nem sincroniza perfis entre aparelhos.
+- Não são carregados escudos ou imagens de clubes. Isso evita incluir imagens sem licença confirmada.
+- Para conteúdo realmente atualizado, conecte uma API licenciada, documente a fonte e a data de atualização e valide as respostas antes de exibi-las.

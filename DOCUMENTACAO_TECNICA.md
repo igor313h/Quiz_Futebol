@@ -1,251 +1,282 @@
-📚 DOCUMENTAÇÃO TÉCNICA - Quiz Futebol
+﻿<div style="text-align: center; font-family: Arial, sans-serif;">
 
-## Dados da Equipe
+**ESCOLA ESTADUAL PROFESSOR OSVALDO FRANCO**
 
-- Nome dos alunos: Igor Andrade Gomes e Gustavo Gomes de Andrade
-- Série: 3º ano do Ensino Médio
-- Professora: Nadya
-- Projeto: Quiz Futebol com login, perfil e histórico
+**3º ANO DO ENSINO MÉDIO**
 
-## Dificuldades Apresentadas
+**DOCUMENTAÇÃO TÉCNICA - QUIZ FUTEBOL**
 
-Durante o desenvolvimento enfrentamos desafios relacionados a:
-- persistência de dados no `localStorage` e restauração correta de objetos;
-- fluxo de login e validação de usuário existente;
-- navegação entre perguntas e finalização do quiz sem perder respostas;
-- exibição de resultados com histórico de perfil e edição de dados do usuário.
+**Aplicação Web de Quiz Interativo sobre Futebol com Sistema de Login, Perfil e Histórico**
 
-## 1. Sobre o Sistema
+**Equipe:**  
+Igor Andrade Gomes  
+Gustavo Gomes de Andrade
 
-Este projeto é um quiz de futebol construído como uma aplicação web estática que roda totalmente no navegador.
-A aplicação não depende de servidor backend: todos os dados são gravados no `localStorage` do navegador.
+**Professora Orientadora:**  
+Nadya
 
-### Tipo de sistema
-- Aplicação web cliente
-- Front-end estático
-- Persistência local no navegador
-- Estrutura baseada em páginas únicas (SPA leve)
+**Local:**  
+[Betim], Brasil
 
-## 2. Principais Tecnologias
+**Data:**  
+29 de abril de 2026
 
-- **HTML5**: marcação das telas e estrutura de conteúdo
-- **CSS3**: design, responsividade, animações e temas visuais
-- **JavaScript ES6+**: lógica de negócio, navegação, controle de estado e manipulação do DOM
-- **localStorage**: armazenamento persistente dos usuários, quizzes e histórico
-
-## 3. Estrutura do Banco de Dados
-
-O sistema usa `localStorage` como banco de dados local. A chave principal é:
-- `quiz_users`
-
-Este valor é um array de objetos `User`, onde cada usuário armazena seu histórico de quizzes.
-
-### Modelo de dados
-
-#### Usuário (`User`)
-- `id`: identificador único (timestamp)
-- `username`: nome do usuário
-- `email`: email do usuário (normalizado em minúsculas)
-- `createdAt`: data de criação do usuário
-- `quizzes`: lista de quizzes realizados
-
-#### Quiz (`QuizResult`)
-- `id`: identificador único do quiz
-- `userId`: id do usuário proprietário
-- `completedAt`: data/hora de conclusão do quiz
-- `answers`: lista de respostas do quiz
-- `score`: pontuação final do quiz
-- `correctAnswers`: número de acertos
-
-#### Resposta (`Answer`)
-- `questionId`: id da pergunta respondida
-- `selectedOption`: índice da opção escolhida
-- `selectedText`: texto da opção selecionada
-- `correctOption`: índice da opção correta
-- `correctText`: texto da opção correta
-- `isCorrect`: booleano indicando acerto
-- `question`: texto da pergunta
-
-#### Perguntas (`QUESTIONS`)
-- lista estática de objetos com campos:
-  - `id`
-  - `question`
-  - `options`
-  - `correct`
-  - `explanation`
-
-## 4. Estrutura de Dados e Relacionamentos
-
-### Tabelas conceituais
-
-#### Tabela `Users`
-- `id`
-- `username`
-- `email`
-- `createdAt`
-- `quizzes` (relação 1:N com `QuizResults`)
-
-#### Tabela `QuizResults`
-- `id`
-- `userId`
-- `completedAt`
-- `score`
-- `correctAnswers`
-- `answers` (relação 1:N com `Answers`)
-
-#### Tabela `Answers`
-- `questionId`
-- `selectedOption`
-- `selectedText`
-- `correctOption`
-- `correctText`
-- `isCorrect`
-- `question`
-
-### Relacionamentos básicos
-
-- `Users` 1 → N `QuizResults`
-- `QuizResults` 1 → N `Answers`
-- `QUESTIONS` é referência mestre, mas não é armazenado no usuário
-
-## 5. Principais Componentes do Código
-
-### `data.js`
-Responsável pelo schema de dados e pela persistência:
-- `User` (modelo de usuário)
-- `QuizResult` (resultado de um quiz)
-- `Database` (gerencia localStorage, login e CRUD de usuário/quiz)
-- `QUESTIONS` (lista de perguntas do quiz)
-
-### `script.js`
-Responsável pela lógica de execução:
-- processo de login e criação de usuário
-- navegação entre telas
-- navegação de perguntas
-- seleção de respostas
-- validação do quiz completo
-- exibição de resultados e perfil
-- edição e exclusão de usuário
-
-### `styles.css`
-Responsável pela apresentação visual:
-- layout responsivo
-- tema em gradiente
-- botões e cards
-- feedback visual para respostas corretas/incorretas
-
-### `index.html`
-Define a estrutura das telas:
-- login
-- quiz
-- resultados
-- perfil
-
-## 6. Campos Mais Importantes
-
-### `User`
-- `id`
-- `username`
-- `email`
-- `createdAt`
-- `quizzes`
-
-### `QuizResult`
-- `id`
-- `userId`
-- `completedAt`
-- `score`
-- `correctAnswers`
-- `answers`
-
-### `Answer`
-- `questionId`
-- `selectedOption`
-- `correctOption`
-- `isCorrect`
-
-## 7. Como Executar o Projeto
-
-### Requisitos
-- Navegador moderno (Chrome, Firefox, Edge, Safari)
-- Não é necessário servidor web, mas recomenda-se um servidor local para evitar restrições de CORS em alguns navegadores.
-
-### Passo a passo básico
-
-1. Abra a pasta do projeto no seu editor ou explorador de arquivos.
-2. Verifique os arquivos principais:
-   - `index.html`
-   - `styles.css`
-   - `script.js`
-   - `data.js`
-3. Abra `index.html` no navegador:
-   - clique duas vezes no arquivo, ou
-   - use uma extensão Live Server no VS Code, ou
-   - rode um servidor simples (por exemplo `python -m http.server` no terminal).
-4. Na tela de login, crie um usuário com nome e email.
-5. Responda as 10 perguntas do quiz.
-6. Clique em `Finalizar Quiz` para ver o resultado.
-7. Vá para `Ver Perfil` para acompanhar estatísticas e histórico.
-
-### Se quiser usar Live Server no VS Code
-1. Instale a extensão Live Server.
-2. Abra a pasta do projeto no VS Code.
-3. Clique com o botão direito em `index.html` e escolha `Open with Live Server`.
-
-## 8. Passo a Passo Básico para Rodar o Sistema
-
-1. Abra o arquivo `index.html`.
-2. Digite um nome de usuário e email na tela de login.
-3. Clique em `Entrar`.
-4. Responda cada pergunta do quiz.
-5. Ao chegar na última pergunta, clique em `Finalizar Quiz`.
-6. Visualize sua pontuação e detalhes de respostas.
-7. Clique em `Ver Perfil` para acessar o histórico, editar ou excluir sua conta.
-
-## 9. Observações sobre o Banco de Dados Local
-
-- O `localStorage` guarda os dados no navegador do usuário.
-- Os dados persistem mesmo após fechar o navegador.
-- Cada navegador/dispositivo mantém seu próprio armazenamento.
-- Limpar cache ou histórico do navegador apaga os dados do sistema.
-
-## 10. Validações Implementadas
-
-1. **Email Único**: não permite criar usuário com email duplicado
-2. **Campos Obrigatórios**: `username` e `email` são obrigatórios no login
-3. **Respostas Completas**: não permite finalizar o quiz se houver perguntas sem resposta
-4. **Login Obrigatório**: só é possível iniciar quiz com usuário logado
-5. **Email Normalizado**: emails são comparados em minúsculas para evitar duplicatas
-
-## 11. Depuração e Erros Comuns
-
-### Erros de console
-- Verifique se `data.js` está carregado antes de `script.js`
-- Verifique se `localStorage` está disponível
-- Verifique erros de DOM se elementos não forem encontrados
-
-### Problemas comuns
-1. `currentUser é null` → usuário não logado corretamente
-2. `Quiz não salva` → `localStorage` desabilitado ou valor inválido
-3. `Perguntas não carregam` → erro no array `QUESTIONS`
-4. `Botões não funcionam` → erro em `script.js`
+</div>
 
 ---
 
-## 12. Estrutura sugerida de “tabelas” conceituais
+## SUMÁRIO
 
-| Entidade | Campos principais | Relacionamento |
-|---------|-------------------|---------------|
-| `User` | `id`, `username`, `email`, `createdAt`, `quizzes` | 1 usuário → N quizzes |
-| `QuizResult` | `id`, `userId`, `completedAt`, `score`, `correctAnswers`, `answers` | 1 quiz → N answers |
-| `Answer` | `questionId`, `selectedOption`, `selectedText`, `correctOption`, `correctText`, `isCorrect`, `question` | pertence a 1 quiz |
-| `Question` | `id`, `question`, `options`, `correct`, `explanation` | lista mestre de perguntas |
+1. [INTRODUÇÃO](#1-introdução)  
+   1.1 [Objetivo](#11-objetivo)  
+   1.2 [Escopo](#12-escopo)  
+2. [REFERENCIAL TEÓRICO E JUSTIFICATIVA](#2-referencial-teórico-e-justificativa)  
+3. [METODOLOGIA DE DESENVOLVIMENTO](#3-metodologia-de-desenvolvimento)  
+   3.1 [Tecnologias utilizadas](#31-tecnologias-utilizadas)  
+   3.2 [Ferramentas](#32-ferramentas)  
+4. [ARQUITETURA DO SISTEMA](#4-arquitetura-do-sistema)  
+   4.1 [Visão geral](#41-visão-geral)  
+   4.2 [Modelo de dados](#42-modelo-de-dados)  
+      4.2.1 [Entidade User](#421-entidade-user)  
+      4.2.2 [Entidade QuizResult](#422-entidade-quizresult)  
+      4.2.3 [Entidade Answer](#423-entidade-answer)  
+      4.2.4 [Entidade Question](#424-entidade-question)  
+   4.3 [Relacionamentos](#43-relacionamentos)  
+5. [IMPLEMENTAÇÃO](#5-implementação)  
+   5.1 [data.js](#51-datajs)  
+   5.2 [script.js](#52-scriptjs)  
+   5.3 [styles.css](#53-stylescss)  
+   5.4 [index.html](#54-indexhtml)  
+6. [REQUISITOS E VALIDAÇÕES](#6-requisitos-e-validações)  
+   6.1 [Requisitos funcionais](#61-requisitos-funcionais)  
+   6.2 [Requisitos não funcionais](#62-requisitos-não-funcionais)  
+   6.3 [Validações aplicadas](#63-validações-aplicadas)  
+7. [TESTES E DEPURAÇÃO](#7-testes-e-depuração)  
+   7.1 [Problemas comuns identificados](#71-problemas-comuns-identificados)  
+   7.2 [Verificações realizadas](#72-verificações-realizadas)  
+8. [ORIENTAÇÕES DE USO](#8-orientações-de-uso)  
+   8.1 [Como executar o projeto](#81-como-executar-o-projeto)  
+   8.2 [Observações sobre armazenamento](#82-observações-sobre-armazenamento)  
+9. [RESULTADOS E CONCLUSÃO](#9-resultados-e-conclusão)  
+10. [ANEXOS](#10-anexos)  
+    10.1 [Estrutura conceitual de entidades](#101-estrutura-conceitual-de-entidades)  
+    10.2 [Exemplo de dado em localStorage](#102-exemplo-de-dado-em-localstorage)  
 
 ---
 
-## 13. Exemplo de dado no localStorage
+## 1. INTRODUÇÃO
 
-Chave: `quiz_users`
+Este documento descreve a arquitetura, as tecnologias, a implementação e as validações do projeto "Quiz Futebol". O sistema é uma aplicação web estática que funciona inteiramente no navegador e preserva dados localmente por meio de localStorage.
+
+### 1.1 Objetivo
+
+O objetivo do projeto é oferecer uma aplicação interativa de perguntas e respostas sobre futebol, com cadastro de usuário, controle de sessão, registro de resultados e histórico de desempenho.
+
+### 1.2 Escopo
+
+O sistema abrange:  
+- Cadastro e autenticação por e-mail;  
+- Interface de quiz com navegação entre perguntas;  
+- Registro de respostas e cálculo de pontuação;  
+- Visualização de perfil e histórico de quizzes;  
+- Persistência de dados no navegador.
+
+## 2. REFERENCIAL TEÓRICO E JUSTIFICATIVA
+
+A solução foi construída como uma aplicação cliente (front-end) baseada em HTML5, CSS3 e JavaScript ES6+. A opção pelo localStorage se deu pela simplicidade de implementação para trabalhos escolares e pela possibilidade de manter dados entre sessões sem backend.
+
+## 3. METODOLOGIA DE DESENVOLVIMENTO
+
+### 3.1 Tecnologias utilizadas
+
+- HTML5: marcação e estrutura das páginas.  
+- CSS3: layout responsivo, temas e efeitos visuais.  
+- JavaScript ES6+: lógica de negócio, manipulação de DOM e persistência.  
+- localStorage: armazenamento persistente do estado de usuários e quizzes.
+
+### 3.2 Ferramentas
+
+- Editor de código (por exemplo, VS Code);  
+- Navegador moderno (Chrome, Firefox, Edge ou Safari);  
+- Live Server ou servidor local opcional para testes.
+
+## 4. ARQUITETURA DO SISTEMA
+
+### 4.1 Visão geral
+
+O sistema é composto por:  
+- index.html: estrutura das telas de login, quiz, resultados e perfil;  
+- styles.css: definição de estilos visuais, responsividade e temas;  
+- data.js: modelo de dados, persistência em localStorage e operações CRUD;  
+- script.js: lógica de navegação, controle de quiz, validações e interface.
+
+### 4.2 Modelo de dados
+
+O armazenamento principal utiliza a chave "quiz_users" em localStorage. O valor salvo é um array de objetos User.
+
+#### 4.2.1 Entidade User
+
+- id: identificador único do usuário;  
+- username: nome do usuário;  
+- email: e-mail do usuário (normalizado em minúsculas);  
+- createdAt: data de criação do usuário;  
+- quizzes: lista de quizzes realizados.
+
+#### 4.2.2 Entidade QuizResult
+
+- id: identificador único do quiz;  
+- userId: identificador do usuário proprietário;  
+- completedAt: data/hora de conclusão;  
+- answers: lista de respostas;  
+- score: pontuação final;  
+- correctAnswers: número de acertos.
+
+#### 4.2.3 Entidade Answer
+
+- questionId: identificador da pergunta;  
+- selectedOption: índice da opção escolhida;  
+- selectedText: texto da opção selecionada;  
+- correctOption: índice da opção correta;  
+- correctText: texto da opção correta;  
+- isCorrect: booleano de acerto;  
+- question: texto da pergunta.
+
+#### 4.2.4 Entidade Question
+
+- id;  
+- question;  
+- options;  
+- correct;  
+- explanation.
+
+### 4.3 Relacionamentos
+
+- User 1 → N QuizResult;  
+- QuizResult 1 → N Answer;  
+- Question atua como referência mestre, não é persistida no usuário.
+
+## 5. IMPLEMENTAÇÃO
+
+### 5.1 data.js
+
+Define as classes e funções responsáveis por:  
+- Criar e validar usuários;  
+- Carregar e salvar dados em localStorage;  
+- Gerenciar a lista de quizzes e histórico;  
+- Manter a lista estática de perguntas.
+
+### 5.2 script.js
+
+Responsável pela interação com o usuário:  
+- Captura de dados de login;  
+- Controle de navegação entre telas e perguntas;  
+- Seleção de alternativas;  
+- Validação de preenchimento completo do quiz;  
+- Cálculo de pontuação e apresentação de resultados;  
+- Edição e exclusão de perfil.
+
+### 5.3 styles.css
+
+Garante frequência visual do projeto por meio de:  
+- Layout responsivo;  
+- Cores e tipografia;  
+- Feedback visual para respostas corretas/incorretas;  
+- Estilo de botões e cards.
+
+### 5.4 index.html
+
+Contém seções distintas para:  
+- Formulário de login;  
+- Interface do quiz;  
+- Página de resultados;  
+- Página de perfil e histórico.
+
+## 6. REQUISITOS E VALIDAÇÕES
+
+### 6.1 Requisitos funcionais
+
+- Cadastro e login de usuário;  
+- Iniciar quiz somente com usuário autenticado;  
+- Salvar respostas e calcular pontuação;  
+- Exibir histórico de resultados por usuário.
+
+### 6.2 Requisitos não funcionais
+
+- Operação em navegador sem backend;  
+- Persistência local de dados;  
+- Interface amigável e responsiva.
+
+### 6.3 Validações aplicadas
+
+1. E-mail único: impede duplicação de cadastros com o mesmo e-mail;  
+2. Campos obrigatórios: username e e-mail devem ser preenchidos;  
+3. Respostas completas: não permite finalizar quiz com perguntas sem resposta;  
+4. Login obrigatório: só é possível iniciar quiz com usuário autenticado;  
+5. E-mail normalizado: comparação em minúsculas para evitar duplicidade.
+
+## 7. TESTES E DEPURAÇÃO
+
+### 7.1 Problemas comuns identificados
+
+- currentUser é null: indica login inválido ou usuário não encontrado;  
+- Quiz não salva: localStorage desabilitado ou dado inválido;  
+- Perguntas não carregam: erro no array QUESTIONS ou na lógica de renderização;  
+- Botões não funcionam: erro de referência aos elementos do DOM.
+
+### 7.2 Verificações realizadas
+
+- Ordem de carregamento dos scripts (data.js antes de script.js);  
+- Disponibilidade do localStorage no navegador;  
+- Integridade dos dados salvos e lidos do localStorage;  
+- Navegação correta entre telas e conclusão de quiz.
+
+## 8. ORIENTAÇÕES DE USO
+
+### 8.1 Como executar o projeto
+
+1. Abra a pasta do projeto no editor ou explorador de arquivos.  
+2. Verifique os arquivos principais: index.html, styles.css, script.js, data.js.  
+3. Abra index.html no navegador:  
+   - Clique duas vezes no arquivo, ou  
+   - Use Live Server no VS Code, ou  
+   - Rode um servidor local (python -m http.server).  
+4. Preencha nome de usuário e e-mail na tela de login.  
+5. Responda todas as perguntas do quiz.  
+6. Clique em "Finalizar Quiz".  
+7. Consulte os resultados e o histórico no perfil.
+
+### 8.2 Observações sobre armazenamento
+
+- O localStorage armazena os dados no navegador em uso;  
+- Os dados persistem após fechar o navegador;  
+- Cada navegador/dispositivo possui armazenamento independente;  
+- Limpar cache/histórico apaga os dados do sistema.
+
+## 9. RESULTADOS E CONCLUSÃO
+
+O projeto alcança os objetivos propostos ao oferecer um quiz de futebol funcional com:  
+- Cadastro e autenticação de usuário;  
+- Persistência de histórico;  
+- Apresentação de resultados e perfil;  
+- Validações básicas de uso.
+
+A aplicação demonstra o uso de tecnologias web front-end para desenvolver um sistema educativo simples e com armazenamento local.
+
+## 10. ANEXOS
+
+### 10.1 Estrutura conceitual de entidades
+
+| Entidade    | Campos principais                                                   | Relacionamento             |
+|-------------|---------------------------------------------------------------------|----------------------------|
+| User        | id, username, email, createdAt, quizzes                            | 1 usuário → N quizzes     |
+| QuizResult  | id, userId, completedAt, score, correctAnswers, answers            | 1 quiz → N answers        |
+| Answer      | questionId, selectedOption, selectedText, correctOption, correctText, isCorrect, question | Pertence a 1 quiz         |
+| Question    | id, question, options, correct, explanation                        | Lista mestre de perguntas |
+
+### 10.2 Exemplo de dado em localStorage
+
+**Chave:** quiz_users
+
 ```javascript
 [
   {
@@ -277,8 +308,16 @@ Chave: `quiz_users`
 ]
 ```
 
----
+**Versão:** 1.0  
+**Data:** 29/04/2026  
+**Desenvolvido com:** HTML5, CSS3, JavaScript ES6+
 
-Versão: 1.0
-Data: 08/04/2024
-Desenvolvido com HTML5, CSS3, JavaScript ES6+
+## Atualização do jogo
+
+A versão atual do fluxo principal em `index.html` passou a utilizar um banco de perguntas separado em `data.js`, com mais de 500 perguntas sobre Copas, clubes, jogadores, futebol feminino, regras, estádios, competições e tática. O banco valida IDs e enunciados únicos, quatro alternativas distintas, índice correto, categoria, dificuldade, explicação e referência antes de ser usado.
+
+O jogo também oferece quatro níveis de dificuldade, seleção de categoria e dez modos: Clássico, Contra o Tempo, Sobrevivência, Verdadeiro ou Falso, Desafio Diário, Campeonato, Adivinhe o Jogador, Adivinhe o Clube, Copa do Mundo e Futebol Brasileiro. A partida apresenta explicações após cada resposta, pontuação com bônus, sequência, ajudas, cronômetro/vidas conforme o modo, resultado detalhado e histórico.
+
+O armazenamento continua local, em `localStorage`; não há backend configurado. Portanto, perfis, recordes e ranking não são sincronizados entre navegadores ou dispositivos. As referências associadas às perguntas indicam fontes institucionais para conferência, mas o aplicativo não consulta dados ao vivo. Elencos e transferências atuais dependem de uma API externa e não são apresentados como informação atualizada.
+
+Para executar, abra `index.html` ou inicie `python -m http.server 8000` na pasta do projeto e acesse `http://localhost:8000`. Consulte também o `README.md` para instruções e limites da versão local.
